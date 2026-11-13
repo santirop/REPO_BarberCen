@@ -1,0 +1,33 @@
+
+USE barberCen;
+
+CREATE TABLE IF NOT EXISTS Cliente (
+    id_cliente INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    apellido VARCHAR(50) NOT NULL,
+    telefono VARCHAR(25),
+    email VARCHAR(100)
+);
+
+CREATE TABLE IF NOT EXISTS Barbero (
+    id_barbero INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    apellido VARCHAR(50) NOT NULL,
+    telefono VARCHAR(25)
+);
+
+CREATE TABLE IF NOT EXISTS Servicio (
+    id_servicio INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    precio DECIMAL(10,2) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Turno (
+    id_turno INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id_cliente INT UNSIGNED NOT NULL,
+    id_barbero INT UNSIGNED NOT NULL,
+    id_servicio INT UNSIGNED NOT NULL,
+    fecha DATE NOT NULL,
+    hora TIME NOT NULL,
+    estado VARCHAR(20) NOT NULL DEFAULT 'Pendiente'
+);

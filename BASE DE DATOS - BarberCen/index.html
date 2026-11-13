@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>barberCEN - Administración</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <h2>barber<span>CEN</span></h2>
+
+        <nav>
+            <a href="#" class="active">Clientes</a>
+            <a href="#">Barberos</a>
+            <a href="#">Servicios</a>
+            <a href="#">Turnos</a>
+        </nav>
+    </aside>
+
+    <main class="contenido">
+
+        <header>
+            <h1>Administración de clientes</h1>
+            <p>Gestioná los clientes de tu barbería.</p>
+        </header>
+
+        <section class="formulario">
+            <h2 id="titulo-formulario">Registrar cliente</h2>
+
+            <form id="formCliente">
+
+                <input type="hidden" id="id_cliente">
+
+                <div class="campos">
+                    <div>
+                        <label>Nombre</label>
+                        <input type="text" id="nombre" placeholder="Nombre" required>
+                    </div>
+
+                    <div>
+                        <label>Apellido</label>
+                        <input type="text" id="apellido" placeholder="Apellido" required>
+                    </div>
+
+                    <div>
+                        <label>Teléfono</label>
+                        <input type="tel" id="telefono" placeholder="Teléfono">
+                    </div>
+
+                    <div>
+                        <label>Email</label>
+                        <input type="email" id="email" placeholder="Correo electrónico">
+                    </div>
+                </div>
+
+                <button type="submit" id="btnGuardar">Guardar cliente</button>
+
+            </form>
+        </section>
+
+        <section class="tabla">
+            <h2>Clientes registrados</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Teléfono</th>
+                        <th>Email</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody id="listaClientes">
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
