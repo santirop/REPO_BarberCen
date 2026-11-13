@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -25,6 +24,7 @@
         <header>
             <h1>Administración de clientes</h1>
             <p>Gestioná los clientes de tu barbería.</p>
+            <p id="estadoConexion" role="status" aria-live="polite"></p>
         </header>
 
         <section class="formulario">
@@ -36,27 +36,28 @@
 
                 <div class="campos">
                     <div>
-                        <label>Nombre</label>
-                        <input type="text" id="nombre" placeholder="Nombre" required>
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" placeholder="Nombre" required maxlength="50">
                     </div>
 
                     <div>
-                        <label>Apellido</label>
-                        <input type="text" id="apellido" placeholder="Apellido" required>
+                        <label for="apellido">Apellido</label>
+                        <input type="text" id="apellido" placeholder="Apellido" required maxlength="50">
                     </div>
 
                     <div>
-                        <label>Teléfono</label>
-                        <input type="tel" id="telefono" placeholder="Teléfono">
+                        <label for="telefono">Teléfono</label>
+                        <input type="tel" id="telefono" placeholder="Teléfono" maxlength="25">
                     </div>
 
                     <div>
-                        <label>Email</label>
-                        <input type="email" id="email" placeholder="Correo electrónico">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="Correo electrónico" maxlength="100">
                     </div>
                 </div>
 
                 <button type="submit" id="btnGuardar">Guardar cliente</button>
+                <button type="button" id="btnCancelar" hidden>Cancelar edición</button>
 
             </form>
         </section>
@@ -76,13 +77,14 @@
                     </tr>
                 </thead>
 
-                <tbody id="listaClientes">
-                </tbody>
+                <tbody id="listaClientes"></tbody>
             </table>
         </section>
 
     </main>
 
-    <script src="js/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="base%20de%20datos/supabase-config.js"></script>
+    <script src="base%20de%20datos/app.js"></script>
 </body>
 </html>
