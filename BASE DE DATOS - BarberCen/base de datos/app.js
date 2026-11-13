@@ -1,3 +1,4 @@
+
 const formulario = document.getElementById("formCliente");
 const lista = document.getElementById("listaClientes");
 const estado = document.getElementById("estadoConexion");
@@ -40,7 +41,7 @@ async function cargarClientes() {
     lista.innerHTML = '<tr><td colspan="6">Cargando clientes...</td></tr>';
 
     const { data, error } = await window.supabaseClient
-        .from("clientes")
+        .from("Cliente")
         .select("id_cliente, nombre, apellido, telefono, email")
         .order("id_cliente", { ascending: true });
 
@@ -60,6 +61,7 @@ async function cargarClientes() {
 
     data.forEach(cliente => {
         const fila = document.createElement("tr");
+
         fila.innerHTML = `
             <td>${escaparHTML(cliente.id_cliente)}</td>
             <td>${escaparHTML(cliente.nombre)}</td>
@@ -67,10 +69,11 @@ async function cargarClientes() {
             <td>${escaparHTML(cliente.telefono)}</td>
             <td>${escaparHTML(cliente.email)}</td>
             <td>
-                <button class="accion" type="button" data-accion="editar" data-id="${cliente.id_cliente}">Editar</button>
-                <button class="accion eliminar" type="button" data-accion="eliminar" data-id="${cliente.id_cliente}">Eliminar</button>
+                <button class="accion" type="button" data-accion="editar" data-id="${escaparHTML(cliente.id_cliente)}">Editar</button>
+                <button class="accion eliminar" type="button" data-accion="eliminar" data-id="${escaparHTML(cliente.id_cliente)}">Eliminar</button>
             </td>
         `;
+
         lista.appendChild(fila);
     });
 
@@ -81,6 +84,7 @@ formulario.addEventListener("submit", async function(evento) {
     evento.preventDefault();
 
     const id = campos.id.value;
+
     const cliente = {
         nombre: campos.nombre.value.trim(),
         apellido: campos.apellido.value.trim(),
@@ -95,12 +99,12 @@ formulario.addEventListener("submit", async function(evento) {
 
     if (id) {
         resultado = await window.supabaseClient
-            .from("clientes")
+            .from("Cliente")
             .update(cliente)
             .eq("id_cliente", id);
     } else {
         resultado = await window.supabaseClient
-            .from("clientes")
+            .from("Cliente")
             .insert([cliente]);
     }
 
@@ -112,12 +116,17 @@ formulario.addEventListener("submit", async function(evento) {
     }
 
     limpiarFormulario();
-    mostrarEstado(id ? "Cliente actualizado correctamente." : "Cliente registrado correctamente.");
+
+    mostrarEstado(
+        id ? "Cliente actualizado correctamente." : "Cliente registrado correctamente."
+    );
+
     await cargarClientes();
 });
 
 lista.addEventListener("click", async function(evento) {
     const boton = evento.target.closest("button[data-accion]");
+
     if (!boton) return;
 
     const id = boton.dataset.id;
@@ -125,7 +134,7 @@ lista.addEventListener("click", async function(evento) {
 
     if (accion === "editar") {
         const { data, error } = await window.supabaseClient
-            .from("clientes")
+            .from("Cliente")
             .select("*")
             .eq("id_cliente", id)
             .single();
@@ -151,8 +160,9 @@ lista.addEventListener("click", async function(evento) {
         if (!confirm("¿Querés eliminar este cliente?")) return;
 
         boton.disabled = true;
+
         const { error } = await window.supabaseClient
-            .from("clientes")
+            .from("Cliente")
             .delete()
             .eq("id_cliente", id);
 
@@ -170,7 +180,11 @@ lista.addEventListener("click", async function(evento) {
 botonCancelar.addEventListener("click", limpiarFormulario);
 
 if (!window.supabaseClient) {
-    mostrarEstado("Configurá la URL y la clave pública de Supabase en supabase-config.js.", true);
+    mostrarEstado(
+        "Configurá la URL y la clave pública de Supabase en supabase-config.js.",
+        true
+    );
+
     lista.innerHTML = '<tr><td colspan="6">Falta configurar la conexión.</td></tr>';
 } else {
     cargarClientes();
